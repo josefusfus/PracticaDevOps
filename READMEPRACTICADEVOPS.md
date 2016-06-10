@@ -2,6 +2,12 @@ Rutas para comprobar servidor :
 Aplicación de nodepop :  http://nodepop.jlsaez.info
 Web BootStrap : http://www.jlsaez.info  o ip 52.204.11.163
 
+PARA COMPROBAR SERVICIO DE ARCHIVOS ESTATICOS
+
+http://nodepop.jlsaez.info/anuncios/iphone.png
+http://nodepop.jlsaez.info/anuncios/bici.jpg
+
+
 Peticiones con Postman para ver como funciona la app.
 
 Crea un usuario primero.
@@ -50,11 +56,15 @@ server {
         listen 80;
         listen [::]:80;
         server_name nodepop.jlsaez.info;
-
-        location ~ ^/(images/anuncios/|anuncios/|jpg/|css/|img/|js/|sounds/) {
-        root /var/www/app/public; # ruta base al directorio de estáticos
+        
+        location ~ ^/(css/|img/|js/|sounds/|anuncios/) {
+        root /home/node/agbo-master-nodejs-practica/public/images; # ruta base $
         access_log off; # no dejar log de acceso a estáticos (no aportan info)
         expires max; # máximo de expiración (cache)
+
+        #pongo una cabecera personalizada
+        add_header X-Owner @josefusfus;
+
                                                 }
         location / {
         #Le paso el trabajo a node actuando como proxy inverso
